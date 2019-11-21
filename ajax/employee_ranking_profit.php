@@ -10,7 +10,7 @@ foreach($names as $index => $elem){
     $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nail" ? "" : null;;
     // $jsonObj->visible = true;
     $jsonObj->type = "bar";
-    $jsonObj->xValueFormatString = "";
+    $jsonObj->xValueFormatString = "₱#,###,###.##";
     $jsonObj->yValueFormatString = "₱#,###,###.##";
     $arr = array();
     foreach($employees as $key => $val){

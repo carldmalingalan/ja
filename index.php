@@ -27,6 +27,11 @@
             transition: .3s;
         }
 
+        .card {
+            box-shadow: 1px 2px 2px 1px #999999 !important;
+            border-radius: 1.5px !important;
+        }
+
         .custom-col {
             margin-bottom: 10px;
         }
@@ -111,7 +116,7 @@
             <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="card">
             <div class="card-body text-center">
-                <div id="service-ranking" style="height: 300px; width: 100%;"></div>
+                <div id="employee-service-ranking" style="height: 300px; width: 100%;"></div>
                 <!-- <a target="_blank" href="print/print_sales_annual.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a> -->
             </div>
             
@@ -120,13 +125,13 @@
             <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="card">
             <div class="card-body text-center">
-                <div id="profit-ranking" style="height: 300px; width: 100%;"></div>
+                <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
                 <!-- <a target="_blank" href="print/print_sales_annual.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a> -->
             </div>
             
         </div>
             </div>
-        </div>
+         
         
     </div>
 </div>
@@ -231,7 +236,7 @@ let weekly = new CanvasJS.Chart("sales-weekly", {
 
 
 
-let serviceRank = new CanvasJS.Chart("service-ranking",{animationEnabled: true,
+let serviceRank = new CanvasJS.Chart("employee-service-ranking",{animationEnabled: true,
 	title:{
 		text: `Employee Ranking (Per Services)`
 	},
@@ -249,14 +254,15 @@ let serviceRank = new CanvasJS.Chart("service-ranking",{animationEnabled: true,
     },
     data: service});
 
-let profitRank = new CanvasJS.Chart("profit-ranking",{animationEnabled: true,
+let profitRank = new CanvasJS.Chart("employee-profit-ranking",{animationEnabled: true,
 	title:{
-		text: `Employee Ranking (Per Profit)`
+		text: `Employee Ranking (Per Income)`
 	},
 	
 	axisY: {
 		title: "Closing Profit",
-		includeZero: false
+		includeZero: false,
+        valueFormatString: "₱#,###,###.##"
 	},
     toolTip: {
         shared: true
