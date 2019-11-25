@@ -5,14 +5,14 @@ class MyPDO extends PDO{
 		private $dbase;
 		private $host;
 
-		public function __construct($dbase,$user="root",$pword="password",$host="127.0.0.1")
+		public function __construct($dbase,$user="",$pword="",$host="")
 		{
 			if(empty(trim($dbase)))
 			{
 				die("INVALID Database Name: ");
 			}
 			try {
-				parent::__construct("mysql:host={$host};dbname={$dbase}",$user,$pword);
+				parent::__construct("sqlsrv:Server={$host};Database={$dbase}",$user,$pword);
 			} catch (PDOException $e) {
 				die("CONNECTION ERROR:".$e->getMessage());
 			}
