@@ -10,6 +10,12 @@ function print_pre($arr){
     echo "</pre>";
 }
 
+function sanitizeMoney($flo){
+    return number_format($flo,2,".",",");
+}
+
+
+
 function getStringMonth($month){
     switch(intval($month)){
     case 1:

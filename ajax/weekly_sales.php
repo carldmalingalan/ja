@@ -36,8 +36,8 @@ $test = $conn->query("select Year,Month,CONCAT('Week ',Week) as [Week Number],Su
         $jsonObj = new stdClass();
         $jsonObj->name = $elem;
         $jsonObj->showInLegend = true;
-        $jsonObj->visible = $elem === "Total" ? true : false;
-        $jsonObj->toolTipContent = $elem === "Total" ? "" : null;
+        $jsonObj->visible = $elem === "Total" || $elem === "Nails" ?  true : false;
+        $jsonObj->toolTipContent = $elem === "Total" ||$elem === "Nails"  ? "" : null;
         $jsonObj->type = "spline";
         $jsonObj->xValueFormatString = "Week D";
         $jsonObj->yValueFormatString = "₱#,###,###.##";
@@ -46,7 +46,7 @@ $test = $conn->query("select Year,Month,CONCAT('Week ',Week) as [Week Number],Su
             $week = "Week {$val}";
             $tempObj = new stdClass();
             $tempObj->x = [intval(date("Y")),intval(date("m"))-1,$val];
-            $tempObj->y = array_key_exists($week, $initData) ? array_key_exists($elem,$initData[$week]) ? $initData[$week][$elem] : 0.00 : 0.00;
+            $tempObj->y = array_key_exists($week, $initData) ? array_key_exists($elem,$initData[$week]) ? floatval($initData[$week][$elem]) : 0.00 : 0.00;
             array_push($arr,$tempObj);
         }
         $jsonObj->dataPoints = $arr;

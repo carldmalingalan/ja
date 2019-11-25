@@ -32,8 +32,8 @@ foreach($names as $index => $elem){
     $jsonObj = new stdClass();
     $jsonObj->name = $elem;
     $jsonObj->showInLegend = true;
-    $jsonObj->visible = $elem === "Total" ? true : false;
-    $jsonObj->toolTipContent = $elem === "Total" ? "" : null;;
+    $jsonObj->visible = $elem === "Total" || $elem === "Nails" ? true : false;
+    $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nails" ? "" : null;;
     $jsonObj->type = "spline";
     $jsonObj->xValueFormatString = "MMMM";
     $jsonObj->yValueFormatString = "₱#,###,###.##";
@@ -41,7 +41,7 @@ foreach($names as $index => $elem){
     foreach(range(1,12) as $key => $val){
         $tempObj = new stdClass();
         $tempObj->x = [intval(date("Y")),$val-1,1];
-        $tempObj->y = array_key_exists(getStringMonth($val), $initData) ? array_key_exists($elem,$initData[getStringMonth($val)]) ? $initData[getStringMonth($val)][$elem] : 0 : 0 ;
+        $tempObj->y = array_key_exists(getStringMonth($val), $initData) ? array_key_exists($elem,$initData[getStringMonth($val)]) ? floatval($initData[getStringMonth($val)][$elem]) : 0 : 0 ;
         array_push($arr,$tempObj);
     }
     $jsonObj->dataPoints = $arr;

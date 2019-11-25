@@ -55,8 +55,38 @@
             <h1>J&A Charts and Reporting</h1>
         </div>
         <div class="row">
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="card">
+        <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="card">
+                <div class="card-body" style="display: flex;">
+                    <h5>Service</h5>
+                    <h3 id="ServiceNo" style="margin:0;padding:0; margin-left: 50%;"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="card">
+                <div class="card-body" style="display: flex;">
+                    <h5>Employee</h5>
+                    <h3 id="EmployeeNo" style="margin:0;padding:0; margin-left: 50%;"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="card">
+                <div class="card-body" style="display: flex;">
+                    <h5 >Product</h5>
+                    <h3 id="ProductNo" style="margin:0;padding:0; margin-left: 50%;"></h3>
+                </div>
+            </div>
+        </div>
+            <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="card">
+                <div class="card-body" style="display: flex;">
+                    <h5>Restock</h5>
+                    <h3 id="OutOfStockNo" style="margin:0;padding:0; margin-left: 50%;"></h3>
+                </div>
+            </div>
+                <!-- <div class="card">
                 <p class="h4 text-center mt-2">Custom Sales Report</p>
                     <form action="" class="from-inline" method="POST">
                         <div class="form-group  mx-sm-3 mb-2">
@@ -86,9 +116,9 @@
                             </div>                                                                                    
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
             <div class="card-body text-center">
                 <div id="sales-annual" style="height: 300px; width: 100%;"></div>
@@ -117,7 +147,7 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-service-ranking" style="height: 300px; width: 100%;"></div>
-                <!-- <a target="_blank" href="print/print_sales_annual.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a> -->
+                <a target="_blank" href="print/print_employee_service.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             
         </div>
@@ -126,13 +156,101 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
-                <!-- <a target="_blank" href="print/print_sales_annual.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a> -->
+                <a target="_blank" href="print/print_employee_income.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
-            
         </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card">
+            <div class="card-body text-center">
+            <h3>List of Services</h3>
+            <div class="table-responsive-sm">
+                <table class="table table-sm table-bordered" id="serviceTable">
+                <thead>
+                    <tr>
+                    <th>Service ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    </tr>
+                </thead>
+                </table>
             </div>
-         
-        
+            <a target="_blank" href="print/print_list_services.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            </div>
+            </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="card">
+            <div class="card-body text-center">
+            <h3>List of Employees</h3>
+            <div class="table-responsive-sm">
+                <table class="table table-sm table-bordered" id="employeeTable">
+                <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Fullname</th>
+                    <th>Date Created</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                </table>
+            </div>
+            <a target="_blank" href="print/print_list_employees.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+
+            </div>
+            </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+            <div class="card-body text-center">
+            <h3>List of In-Stock Items</h3>
+            <div class="table-responsive-sm" style="width: 100%;">
+            <table class="table table-sm table-bordered" id="instockTable">
+                <thead>
+                <tr>
+                <th>Item ID</th>
+                    <th>Description</th>
+                    <th>In-Stock</th>
+                    <th>Per Volume</th>
+                    <th>Current Volume</th>
+                    <th>Critical Scale</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                </table>
+            </div>
+            <a target="_blank" href="print/print_list_in_stock.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            </div>
+            </div>
+        </div>
+        <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card">
+            <div class="card-body text-center">
+            <h3>List of Out of Stock Items</h3>
+            <div class="table-responsive-sm">
+                <table class="table table-sm table-bordered" id="outstockTable">
+                <thead>
+                <tr>
+                <th>Item ID</th>
+                    <th>Description</th>
+                    <th>In-Stock</th>
+                    <th>Per Volume</th>
+                    <th>Current Volume</th>
+                    <th>Critical Scale</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                </table>
+            </div>
+            <a target="_blank" href="print/print_list_out_stock.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </section>
@@ -396,6 +514,40 @@ function EmpProfitLegendChange(e){
         },
         error: function(data){
             console.log(data)
+        }
+    })
+
+    $.ajax({
+        url: "ajax/badges.php",
+        dataType: "JSON",
+        success: function(data){
+            let keys = Object.keys(data[0]);
+            keys.forEach(val => {
+                $(`#${val}`).append(data[0][val]);
+            })
+        },
+        error: function(data){
+            console.log(data);
+        }
+    })
+
+    $.ajax({
+        url: "ajax/tables.php",
+        dataType: "JSON",
+        success: function(data){
+            console.log(data);
+            let keys = Object.keys(data);
+            keys.forEach(val => {
+                if(!data[val]){
+                    $(`#${val}`).append(`<tbody><tr><td colspan="100%">No fetched data.</td></tr></tbody>`)
+                }else{
+                    $(`#${val}`).append(`<tbody>${data[val]}</tbody>`)
+                }
+                
+            })
+        },
+        error: function(data){
+            console.log(data);
         }
     })
  })

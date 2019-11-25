@@ -7,6 +7,7 @@ $test = $conn->query("select Year,Sum(Price) as Income,ServiceType from (
     group by TransactionNumber,YEAR([date/time]),ServiceType) b
     group by ServiceType,Year")->fetchAll(PDO::FETCH_ASSOC);
 
+
 $initData = array();
 $total = 0;
 
@@ -20,28 +21,29 @@ foreach($test as $key => $val){
         $initData["{$val['Year']}"]["Total"] = $total;
     }
 }
+$totalCount = sizeof($initData);
 
 // $initData["Total"] = $total;
 // print_r($initData);
 // die; 
 
 $mainArr = array();
-$names = array("Hair","Face","Body","Nail","Total");
+$names = array("Hair","Face","Body","Nails","Total");
 foreach($names as $index => $elem){
     $jsonObj = new stdClass();
     $jsonObj->name = $elem;
     $jsonObj->showInLegend = true;
-    $jsonObj->visible = $elem === "Total" ? true : false;
-    $jsonObj->toolTipContent = $elem === "Total" ? "" : null;
+    $jsonObj->visible = $elem === "Total" || $elem === "Nails" ? true : false;
+    $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nails" ? "" : null;
 
-    $jsonObj->type = "bar";
+    $jsonObj->type = $totalCount > 1 ? "splice" : "bar";
     $jsonObj->xValueFormatString = "YYYY";
     $jsonObj->yValueFormatString = "₱#,###,###.##";
     $arr = array();
     foreach($initData as $key => $val){
         $tempObj = new stdClass();
         $tempObj->x = [$key,12,1];
-        $tempObj->y = array_key_exists($elem,$val) ? $val[$elem] : 0;
+        $tempObj->y = array_key_exists($elem,$val) ? floatval($val[$elem]) : 0;
         array_push($arr,$tempObj);
     }
     
