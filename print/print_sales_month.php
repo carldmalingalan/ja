@@ -9,6 +9,10 @@ $test = $conn->query("select Year,Month,Sum(Price) as Income,ServiceType from (
     order by Year , Month")->fetchAll(PDO::FETCH_ASSOC);
 
     $initData = array();
+    
+$acctId = $_GET["id"];
+$userName = $conn->query("select AccountFullname As UName
+ from tblAccounts where AccountID = {$acctId}")->fetchAll(PDO::FETCH_ASSOC);
 
 
 foreach($test as $key => $val){
@@ -34,7 +38,7 @@ $pdf->addPage();
 $pdf->SetTitle('Monthly Report');
 
 $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
-$pdf->FooterName = "Carl Dennis Alignalan";
+$pdf->FooterName = $userName[0]["UName"];
 $pdf->SetFont('Arial','',12);
 $pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');
 $pdf->SetFont('Arial','',15);

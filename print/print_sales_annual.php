@@ -2,6 +2,12 @@
 require_once "../support/fpdf.php";
 require_once "../support/ja_config.php";
 
+$acctId = $_GET["id"];
+$userName = $conn->query("select AccountFullname As UName
+ from tblAccounts where AccountID = {$acctId}")->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 $test = $conn->query("select Year,Sum(Price) as Income,ServiceType from (
     select TransactionNumber,YEAR([date/time]) as [Year],ServiceType, SUM(ServicePrice) as Price  from dashboard_View
     group by TransactionNumber,YEAR([date/time]),ServiceType) b
@@ -30,7 +36,7 @@ $pdf->addPage();
 $pdf->SetTitle('Annual Report');
 
 $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
-$pdf->FooterName = "Carl Dennis Alignalan";
+$pdf->FooterName = $userName[0]["UName"];
 $pdf->SetFont('Arial','',12);
 $pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');
 $pdf->SetFont('Arial','',15);

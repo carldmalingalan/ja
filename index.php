@@ -52,7 +52,7 @@
 <div class="container">
     <div class="custom-container">
         <div class="text-center">
-            <h1>J&A Charts and Reporting</h1>
+            <h1>J&A Charts and Reporting </h1>
         </div>
         <div class="row">
         <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -122,7 +122,7 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="sales-annual" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_sales_annual.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                <a target="_blank" href="print/print_sales_annual.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             
         </div>
@@ -131,7 +131,7 @@
                 <div class="card">
             <div class="card-body text-center">
             <div id="sales-monthly" style="height: 300px; width: 100%;"></div>
-            <a target="_blank" href="print/print_sales_month.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_sales_month.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
         </div>
             </div>
@@ -139,7 +139,7 @@
                 <div class="card">
             <div class="card-body text-center">
             <div id="sales-weekly" style="height: 300px; width: 100%;"></div>
-            <a target="_blank" href="print/print_sales_week.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_sales_week.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
         </div>
             </div>
@@ -147,7 +147,7 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-service-ranking" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_employee_service.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                <a target="_blank" href="print/print_employee_service.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             
         </div>
@@ -156,7 +156,7 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_employee_income.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                <a target="_blank" href="print/print_employee_income.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
         </div>
         </div>
@@ -177,7 +177,7 @@
                 </thead>
                 </table>
             </div>
-            <a target="_blank" href="print/print_list_services.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_list_services.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             </div>
         </div>
@@ -197,7 +197,7 @@
                 </thead>
                 </table>
             </div>
-            <a target="_blank" href="print/print_list_employees.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_list_employees.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
 
             </div>
             </div>
@@ -222,7 +222,7 @@
                 </thead>
                 </table>
             </div>
-            <a target="_blank" href="print/print_list_in_stock.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_list_in_stock.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             </div>
         </div>
@@ -246,7 +246,7 @@
                 </thead>
                 </table>
             </div>
-            <a target="_blank" href="print/print_list_out_stock.php" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+            <a target="_blank" href="print/print_list_out_stock.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             </div>
         </div>
