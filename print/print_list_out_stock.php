@@ -27,6 +27,8 @@ $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
 $pdf->FooterName = $userName[0]["UName"];
 $pdf->SetFont('Arial','',12);
 $pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');
+$pdf->SetFont('Arial','',8);
+$pdf->Cell(100,'5',"711 Boni Avenue Mandaluyong City",0,1,"l");
 $pdf->SetFont('Arial','',15);
 $pdf->Cell('195','10',date('Y')." List of Out-Stock Items Report",0,1,'C');
 $pdf->SetFont('Arial','',7);
