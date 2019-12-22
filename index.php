@@ -165,7 +165,7 @@
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-service-ranking" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_employee_service.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                
             </div>
             
         </div>
@@ -372,27 +372,11 @@ let weekly = new CanvasJS.Chart("sales-weekly", {
 
 
 
-let serviceRank = new CanvasJS.Chart("employee-service-ranking",{animationEnabled: true,
-	title:{
-		text: `Employee Ranking (Per Services)`
-	},
-	
-	axisX: {
-		title: "Employee Names",
-		includeZero: false
-	},
-    toolTip: {
-        shared: true
-    },
-    legend: {
-        cursor: "pointer",
-        itemclick: EmpServLegendChange
-    },
-    data: service});
+
 
 let profitRank = new CanvasJS.Chart("employee-profit-ranking",{animationEnabled: true,
 	title:{
-		text: `Employee Ranking (Per Income)`
+		text: `Employee Ranking (Cost Performance)`
 	},
 	
 	axisY: {
@@ -447,17 +431,7 @@ function weeklyLegendChange(e){
     weekly.render();
 }
 
-function EmpServLegendChange(e){
-    if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-        e.dataSeries["toolTipContent"] = null;
-	}
-	else {
-		e.dataSeries.visible = true;            
-        delete e.dataSeries["toolTipContent"] || "";
-	}
-    serviceRank.render();
-}
+
 
 
 function EmpProfitLegendChange(e){
@@ -512,17 +486,7 @@ function EmpProfitLegendChange(e){
         }
     })
 
-    $.ajax({
-        url: "ajax/employee_ranking_service.php",
-        dataType: "JSON",
-        success:function(data) {
-            service.push(...data);
-            serviceRank.render();
-        },
-        error: function(data){
-            console.log(data)
-        }
-    })
+  
     $.ajax({
         url: "ajax/employee_ranking_profit.php",
         dataType: "JSON",

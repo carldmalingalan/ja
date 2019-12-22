@@ -39,7 +39,7 @@ $categ = array("Hair","Face","Nails","Body");
 
 $pdf = new FPDF("P", "mm", "Letter");
 $pdf->addPage();
-$pdf->SetTitle('Employee Ranking (Per Income)');
+$pdf->SetTitle('Employee (Cost Performance)');
 
 $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
 $pdf->FooterName = $userName[0]["UName"];
@@ -48,7 +48,7 @@ $pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');
 $pdf->SetFont('Arial','',8);
 $pdf->Cell(100,'5',"711 Boni Avenue Mandaluyong City",0,1,"l");
 $pdf->SetFont('Arial','',15);
-$pdf->Cell('195','10',"Employee Ranking (Per Income)",0,1,'C');
+$pdf->Cell('195','10',"Employee (Cost Performance)",0,1,'C');
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(48.75,'5',"Name",1,0,'C');
 $pdf->Cell(48.75,'5',"Categories",1,0,'C');
@@ -67,29 +67,29 @@ foreach($initData as $key => $val){
 
         if($key1 === 0){
             $pdf->SetFont('Arial','',8);
-            $pdf->Cell(48.75,5,$employees[$key],1,0,"C");
+            $pdf->Cell(48.75,5,$employees[$key],1,0,"L");
             $pdf->SetFont('Arial','',10);
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }else{
-            $pdf->Cell(48.75,5,"",1,0,"C");
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,"",1,0,"L");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }
     }
+    $pdf->Cell(48.75,5,"",1,0,"L");
+    $pdf->Cell(48.75,5,"",1,0,"L");
     $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format(floatval($val["Total"]),2,".",","),1,1,"C");
+    $pdf->Cell(48.75,5,"P ".number_format(floatval($val["Total"]),2,".",","),1,1,"R");
     $finalTotal += floatval($val["Total"]);
     
 }
+    $pdf->Cell(48.75,5,"",0,0,"L");
+    $pdf->Cell(48.75,5,"",0,0,"L");
     $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"C");
+    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"R");
 
 
 

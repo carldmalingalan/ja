@@ -59,31 +59,31 @@ foreach(range(1,12) as $key => $val){
     foreach($categ as $key1 => $val1){
         $current = array_key_exists(getStringMonth($val),$initData) ? array_key_exists($val1,$initData[getStringMonth($val)]) ? $initData[getStringMonth($val)][$val1] : 0 : 0;
         if($key1 === 0){
-            $pdf->Cell(48.75,5,date("F",strtotime(date ("Y/".$val."/d"))),1,0,"C");
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,"P ".number_format($current,2,".",","),1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,date("F",strtotime(date ("Y/".$val."/d"))),1,0,"L");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,"P ".number_format($current,2,".",","),1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }else{
-            $pdf->Cell(48.75,5,"",1,0,"C");
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,"P ".number_format($current,2,".",","),1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,"",1,0,"L");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,"P ".number_format($current,2,".",","),1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }
     }
+    $pdf->Cell(48.75,5,"",1,0,"L");
+    $pdf->Cell(48.75,5,"",1,0,"L");
     $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format($final,2,".",","),1,1,"C");
+    $pdf->Cell(48.75,5,"P ".number_format($final,2,".",","),1,1,"R");
     
     $finalTotal += $final;
 }
 
 
 
+    $pdf->Cell(48.75,5,"",0,0,"L");
+    $pdf->Cell(48.75,5,"",0,0,"L");
     $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"C");
+    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"R");
 
 
 

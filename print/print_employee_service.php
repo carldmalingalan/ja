@@ -70,26 +70,26 @@ foreach($initData as $key => $val){
             $pdf->Cell(48.75,5,$employees[$key],1,0,"C");
             $pdf->SetFont('Arial','',10);
             $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }else{
             $pdf->Cell(48.75,5,"",1,0,"C");
             $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }
     }
     $pdf->Cell(48.75,5,"",1,0,"C");
     $pdf->Cell(48.75,5,"",1,0,"C");
     $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,$val["Total"],1,1,"C");
+    $pdf->Cell(48.75,5,$val["Total"],1,1,"R");
     $finalTotal += floatval($val["Total"]);
     
 }
     $pdf->Cell(48.75,5,"",0,0,"C");
     $pdf->Cell(48.75,5,"",0,0,"C");
     $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,$finalTotal,"B",1,"C");
+    $pdf->Cell(48.75,5,$finalTotal,"B",1,"R");
 
 
 

@@ -56,32 +56,30 @@ $finalTotal = 0;
 foreach($initData as $key => $val){
     
     foreach($categ as $key1 => $val1){
-        
         $income =  array_key_exists($val1,$val) ? "P ".number_format(floatval($val[$val1]),2,".",",") : "0.00";
-
         if($key1 === 0){
-            $pdf->Cell(48.75,5,$key,1,0,"C");
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,$key,1,0,"L");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }else{
-            $pdf->Cell(48.75,5,"",1,0,"C");
-            $pdf->Cell(48.75,5,$val1,1,0,"C");
-            $pdf->Cell(48.75,5,$income,1,0,"C");
-            $pdf->Cell(48.75,5,"",1,1,"C");
+            $pdf->Cell(48.75,5,"",1,0,"L");
+            $pdf->Cell(48.75,5,$val1,1,0,"L");
+            $pdf->Cell(48.75,5,$income,1,0,"R");
+            $pdf->Cell(48.75,5,"",1,1,"R");
         }
     }
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"",1,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format(floatval($val["Total"]),2,".",","),1,1,"C");
+    $pdf->Cell(48.75,5,"",1,0,"L");
+    $pdf->Cell(48.75,5,"",1,0,"L");
+    $pdf->Cell(48.75,5,"",1,0,"R");
+    $pdf->Cell(48.75,5,"P ".number_format(floatval($val["Total"]),2,".",","),1,1,"R");
     $finalTotal += floatval($val["Total"]);
     
 }
+    $pdf->Cell(48.75,5,"",0,0,"L");
+    $pdf->Cell(48.75,5,"",0,0,"L");
     $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"",0,0,"C");
-    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"C");
+    $pdf->Cell(48.75,5,"P ".number_format($finalTotal,2,".",","),"B",1,"R");
 
 
 
