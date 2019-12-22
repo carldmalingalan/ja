@@ -8,6 +8,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css" >
+    <link href='packages/core/main.css' rel='stylesheet' />
+<link href='packages/daygrid/main.css' rel='stylesheet' />
+<link href='packages/timegrid/main.css' rel='stylesheet' />
+<link href='packages-premium/timeline/main.css' rel='stylesheet' />
+<link href='packages-premium/resource-timeline/main.css' rel='stylesheet' />
     
     <style>
         section {
@@ -63,6 +68,7 @@
             <h1>J&A Charts and Reporting </h1>
         </div>
         <div class="row">
+        
         <div class="custom-col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <a href="#serviceAnchor" class="anchor_link">
             <div class="card">
@@ -104,73 +110,37 @@
                 </div>
             </div>
             </a>
-                <!-- <div class="card">
-                <p class="h4 text-center mt-2">Custom Sales Report</p>
-                    <form action="" class="from-inline" method="POST">
-                        <div class="form-group  mx-sm-3 mb-2">
-                            <div class="row">
-                            <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
-                            <input type="text" class="form-control form-control-sm"  name="single_report" id="single_report" placeholder="Enter single date" >
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                            <button type="submit"  class="btn btn-sm btn-outline-success float-right">Generate</button>
-                            </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="" class="from-inline" method="POST">
-                        <div class="form-group  mx-sm-3 mb-2">
-                            <div class="row">
-                            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                            <input type="text" class="form-control form-control-sm"  name="multi_report" id="single_report" placeholder="Enter single date" >
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                            <input type="text" class="form-control form-control-sm"  name="multi_report" id="single_report" placeholder="Enter single date" >
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                            <button type="submit" class="btn btn-sm btn-outline-success float-right">Generate</button>
-                            </div>
-                            </div>                                                                                    
-                        </div>
-                    </form>
-                </div> -->
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+                <div class="card">
+                    <div class="card-body"><div id="appointment-calendar"></div></div>
+                </div>
+                
             </div>
             <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
             <div class="card-body text-center">
+            
+            <div class="btn-group btn-group-toggle" id="reportOptions" data-toggle="buttons">
+                <label class="btn btn-outline-primary active">
+                    <input type="radio" name="options" id="annual" checked> Annual
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="options" id="monthly"> Monthly
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="options" id="weekly"> Weekly
+                </label>
+                </div>
                 <div id="sales-annual" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_sales_annual.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                <a target="_blank" id="salesPrintButton" href="print/print_sales_annual.php/?id=<?php echo $_GET["id"];?>" data-user="<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
             
         </div>
             </div>
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="card">
-            <div class="card-body text-center">
-            <div id="sales-monthly" style="height: 300px; width: 100%;"></div>
-            <a target="_blank" href="print/print_sales_month.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
-            </div>
-        </div>
-            </div>
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="card">
-            <div class="card-body text-center">
-            <div id="sales-weekly" style="height: 300px; width: 100%;"></div>
-            <a target="_blank" href="print/print_sales_week.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
-            </div>
-        </div>
-            </div>
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="card">
-            <div class="card-body text-center">
-                <div id="employee-service-ranking" style="height: 300px; width: 100%;"></div>
-                
-            </div>
+           
             
-        </div>
-            </div>
-            <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
             <div class="card-body text-center">
                 <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
@@ -279,21 +249,52 @@
 <script src="canvasjs-2.3.2/canvasjs.min.js"></script>
 <script src="momentjs/moment.js"></script>
 
+<script src='packages/core/main.js'></script>
+<script src='packages/interaction/main.js'></script>
+<script src='packages/daygrid/main.js'></script>
+<script src='packages/timegrid/main.js'></script>
+<script src='packages-premium/timeline/main.js'></script>
+<script src='packages-premium/resource-common/main.js'></script>
+<script src='packages-premium/resource-timeline/main.js'></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $.ajax({
+        url: "ajax/appointments.php",
+        dataType: "JSON",
+        global: true,
+        success: data => {
+            let clel = document.getElementById("appointment-calendar");
+            
+            let calendar = new FullCalendar.Calendar(clel,{
+                plugins:['dayGrid', 'timeGrid'],
+                height: 500,
+                header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+  },
+                events: [...data]
+            });
+
+            calendar.render();
+
+        },
+        error: err => console.error(err)
+    })
+    });
 $(document).ready(function(){ 
 
     $('[data-toggle="tooltip"]').tooltip();
 
-
-    let annualData = [], monthlyData = [], weeklyData = [], service = [], profit = [];
-
-let monthly =   new CanvasJS.Chart("sales-monthly", {
+    function salesReport(id){
+        
+        let title = "";
+        let chartSales;
+        let btnHref = "print/"
+        let config = {
 	animationEnabled: true,
-	title:{
-		text: `Sales Report - Monthly (${moment().format("YYYY")})`
-	},
 	axisX:{
-		valueFormatString: "MMM"
+		valueFormatString: id === 'annual' ? "YYYY" : id === 'monthly' ? "MMM" : "Week D"
 	},
 	axisY: {
 		title: "Closing Price",
@@ -305,10 +306,71 @@ let monthly =   new CanvasJS.Chart("sales-monthly", {
     },
     legend: {
         cursor: "pointer",
-        itemclick: monthlyLegendChange
-    },
-    data: monthlyData
-})
+        itemclick: isClickLegend
+    }
+}
+
+
+        switch(id){
+            case "annual":
+                title = "Sales Report - Annual";
+                btnHref += "print_sales_annual.php/?id=";
+                break;
+            case "monthly":
+                 title = `Sales Report - Monthly (${moment().format("YYYY")})`
+                 btnHref += "print_sales_month.php/?id=";
+                 break;
+            case "weekly":
+                 title = `Sales Report - Weekly (${moment().format("MMMM")})`
+                 btnHref += "print_sales_week.php/?id=";
+                 break;
+            default:
+             title;
+        }
+        config['title'] = {text: title};
+        $.ajax({
+        url: `ajax/${id}_sales.php`,
+        dataType: "JSON",
+        global: true,
+        success:function(data) {
+            let userId = $("#salesPrintButton").data("user");
+            console.log(userId);
+            $("#salesPrintButton").attr("href", btnHref += userId)
+            let finalData = data.map(m2Val => ({ ...m2Val, dataPoints: m2Val.dataPoints.map(mVal => ({...mVal, x: new Date(mVal.x[0], mVal.x[1], mVal.x[2])})) }))
+            config["data"] = [...finalData]
+            chartSales = new CanvasJS.Chart(`sales-annual`,config);
+            chartSales.render();
+            
+        },
+        error: function(data){
+            console.log(data)
+        }
+    })
+    function isClickLegend(e){
+    if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+        e.dataSeries["toolTipContent"] = null;
+	}
+	else {
+		e.dataSeries.visible = true;            
+        delete e.dataSeries["toolTipContent"] || "";
+	}
+    chartSales.render();
+}
+    }
+    $("#reportOptions").on("change", function(e){
+        const id = e.target.id;
+        salesReport(id);
+    })
+
+    
+       
+ 
+
+
+    let annualData = [], monthlyData = [], weeklyData = [], service = [], profit = [];
+
+
 
 let annually =  new CanvasJS.Chart("sales-annual", {
 	animationEnabled: true,
@@ -334,28 +396,7 @@ let annually =  new CanvasJS.Chart("sales-annual", {
 	
 });
 
-let weekly = new CanvasJS.Chart("sales-weekly", {
-	animationEnabled: true,
-	title:{
-		text: `Sales Report - Weekly (${moment().format("MMMM")})`
-	},
-	axisX:{
-		valueFormatString: "Week D"
-	},
-	axisY: {
-		title: "Closing Price",
-		includeZero: false,
-		valueFormatString: "₱#,###,###.##"
-	},
-    toolTip: {
-        shared: true
-    },
-    legend: {
-        cursor: "pointer",
-        itemclick: weeklyLegendChange
-    },
-	data: weeklyData
-    });
+
 
 
 
@@ -393,17 +434,7 @@ let profitRank = new CanvasJS.Chart("employee-profit-ranking",{animationEnabled:
     },
     data: profit});
 // Wierd 
-function monthlyLegendChange(e){
-    if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-        e.dataSeries["toolTipContent"] = null;
-	}
-	else {
-		e.dataSeries.visible = true;            
-        delete e.dataSeries["toolTipContent"] || "";
-	}
-    monthly.render();
-}
+
 
 
 function annuallyLegendChange(e){
@@ -419,17 +450,6 @@ function annuallyLegendChange(e){
 }
 
 
-function weeklyLegendChange(e){
-    if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-        e.dataSeries["toolTipContent"] = null;
-	}
-	else {
-		e.dataSeries.visible = true;            
-        delete e.dataSeries["toolTipContent"] || "";
-	}
-    weekly.render();
-}
 
 
 
@@ -459,33 +479,8 @@ function EmpProfitLegendChange(e){
             console.log(data)
         }
     })
-    $.ajax({
-        url: "ajax/monthly_sales.php",
-        dataType: "JSON",
-        global: true,
-        success:function(data) {
-            let finalData = data.map(m2Val => ({ ...m2Val, dataPoints: m2Val.dataPoints.map(mVal => ({...mVal, x: new Date(mVal.x[0], mVal.x[1], mVal.x[2])})) }))
-            monthlyData.push(...finalData);
-            monthly.render();
-            
-        },
-        error: function(data){
-            console.log(data)
-        }
-    })
-    $.ajax({
-        url: "ajax/weekly_sales.php",
-        dataType: "JSON",
-        success:function(data) {
-            let finalData = data.map(m2Val => ({ ...m2Val, dataPoints: m2Val.dataPoints.map(mVal => ({...mVal, x: new Date(mVal.x[0], mVal.x[1], mVal.x[2])})) }))
-            weeklyData.push(...finalData);
-            weekly.render();
-        },
-        error: function(data){
-            console.log(data)
-        }
-    })
-
+   
+    
   
     $.ajax({
         url: "ajax/employee_ranking_profit.php",
