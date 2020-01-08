@@ -16,10 +16,10 @@ $total = 0;
 foreach($test as $key => $val){
     $initData["{$val['Year']}"][$val["ServiceType"]] = $val["Income"];
     $total += floatval($val["Income"]);
+}
 
-    if($val === end($test)){
-        $initData["{$val['Year']}"]["Total"] = $total;
-    }
+foreach($initData as $key => $val){
+    $initData["{$key}"]["Total"] = array_reduce($val, function($prev, $curr){ return $prev += $curr; });
 }
 $totalCount = sizeof($initData);
 
@@ -33,10 +33,10 @@ foreach($names as $index => $elem){
     $jsonObj = new stdClass();
     $jsonObj->name = $elem;
     $jsonObj->showInLegend = true;
-    $jsonObj->visible = $elem === "Total" || $elem === "Nails" ? true : false;
-    $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nails" ? "" : null;
+    $jsonObj->visible = $elem === "Total" ? true : false;
+    $jsonObj->toolTipContent = $elem === "Total"? "" : null;
 
-    $jsonObj->type = $totalCount > 1 ? "splice" : "bar";
+    $jsonObj->type ="bar";
     $jsonObj->xValueFormatString = "YYYY";
     $jsonObj->yValueFormatString = "₱#,###,###.##";
     $arr = array();

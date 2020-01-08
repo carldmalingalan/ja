@@ -20,10 +20,11 @@ $test = $conn->query("select Year,Sum(Price) as Income,ServiceType from (
     foreach($test as $key => $val){
         $initData["{$val['Year']}"][$val["ServiceType"]] = $val["Income"];
         $total += floatval($val["Income"]);
-    
-        if($val === end($test)){
-            $initData["{$val['Year']}"]["Total"] = $total;
-        }
+
+    }
+
+    foreach($initData as $key => $val){
+        $initData["{$key}"]["Total"] = array_reduce($val, function($prev, $curr){ return $prev += $curr; });
     }
 
 //    print_pre($initData);

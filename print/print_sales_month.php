@@ -5,6 +5,7 @@ require_once "../support/ja_config.php";
 $test = $conn->query("select Year,Month,Sum(Price) as Income,ServiceType from (
     select TransactionNumber,Month([date/time]) as [Month],YEAR([date/time]) as [Year],ServiceType, SUM(ServicePrice) as Price  from dashboard_View
     group by TransactionNumber,Month([date/time]),YEAR([date/time]),ServiceType) b
+   	where year	= year(getdate())
     group by ServiceType,Month,Year
     order by Year , Month")->fetchAll(PDO::FETCH_ASSOC);
 
