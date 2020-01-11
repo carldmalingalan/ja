@@ -7,12 +7,15 @@
     <title>J&A Charts and Reporting</title>
 
     <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css" >
+    <link href='datepicker/datepicker3.css' rel='stylesheet'/>
     <link href='packages/core/main.css' rel='stylesheet' />
 <link href='packages/daygrid/main.css' rel='stylesheet' />
 <link href='packages/timegrid/main.css' rel='stylesheet' />
 <link href='packages-premium/timeline/main.css' rel='stylesheet' />
 <link href='packages-premium/resource-timeline/main.css' rel='stylesheet' />
+
     
     <style>
         section {
@@ -57,6 +60,11 @@
         a:hover {
             color: white !important;
         }
+        .disabled:hover {
+        cursor: not-allowed !important;
+        }
+
+
     </style>
 </head>
 <body>
@@ -143,6 +151,27 @@
             <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
             <div class="card-body text-center">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">From</span>
+                        </div>
+                        <input type="text" class="form-control datepickerFrom">
+                    </div>
+                    </div>
+                </div>
+                <div class="col-6"><div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">To</span>
+                        </div>
+                        <input type="text" disabled class="form-control datepickerTo disabled">
+                    </div>
+                    </div>
+                </div></div>
+            </div>
                 <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
                 <a target="_blank" href="print/print_employee_income.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
             </div>
@@ -245,9 +274,11 @@
 
 <script src="jquery/jquery.3.4.1.min.js" ></script>
 <script src="bootstrap/popper.min.js" ></script>
-<script src="bootstrap/bootstrap.min.js" ></script>
+
 <script src="canvasjs-2.3.2/canvasjs.min.js"></script>
 <script src="momentjs/moment.js"></script>
+<script src="bootstrap/bootstrap.min.js" ></script>
+<script src="datepicker/bootstrap-datepicker.js"></script>
 
 <script src='packages/core/main.js'></script>
 <script src='packages/interaction/main.js'></script>
@@ -285,6 +316,19 @@
 $(document).ready(function(){ 
 
     $('[data-toggle="tooltip"]').tooltip();
+    $(".datepickerFrom").datepicker({ clearBtn: true }).on("changeDate", function(e){ 
+        let dateSelected = e.dates[0];
+        $(".datepickerTo").attr({disabled: false});        
+            $(".datepickerTo").removeClass("disabled");
+            $(".datepickerTo").datepicker("remove");
+            $(".datepickerTo").datepicker({ clearBtn: true, startDate: new Date(dateSelected), todayHighlight: true });
+     }).on("clearDate",function(e){
+        $(".datepickerTo").attr({disabled: true}).val("");     
+            $(".datepickerTo").datepicker("clearDates");   
+            $(".datepickerTo").addClass("disabled");
+     });
+
+    
 
     function salesReport(id){
         
@@ -395,24 +439,6 @@ let annually =  new CanvasJS.Chart("sales-annual", {
     data: annualData
 	
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 let profitRank = new CanvasJS.Chart("employee-profit-ranking",{animationEnabled: true,
