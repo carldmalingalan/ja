@@ -1,6 +1,22 @@
 <?php 
-require_once "../support/fpdf.php";
-require_once "../support/ja_config.php";
+// require_once "../support/fpdf.php";
+// require_once "../support/ja_config.php";
+
+if(!isset($_POST) && empty($_POST)){
+    echo "Invalid parameters";
+    die;
+}
+
+if(empty($_POST["from"]) || empty($_POST["user_id"])){
+    echo '<script>window.location.href="/ja"</script>';
+}
+
+
+$_POST["to"] = empty($_POST["to"]) ? $_POST["from"] : $_POST["to"];
+
+// print_r($_POST);
+// die;
+
 
 $test = $conn->query("select SUM(ServicePrice) as Total,b.Emp_Fullname,ServiceType,b.EmployeeID 
 from tblServicesAvailed a 
@@ -41,7 +57,7 @@ $pdf = new FPDF("P", "mm", "Letter");
 $pdf->addPage();
 $pdf->SetTitle('Employee (Cost Performance)');
 
-$pdf->Image("BG_Circle.png",-110,-20, 300, 150);
+// $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
 $pdf->FooterName = $userName[0]["UName"];
 $pdf->SetFont('Arial','',12);
 $pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');

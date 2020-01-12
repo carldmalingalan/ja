@@ -145,20 +145,20 @@
             </div>
             
         </div>
-            </div>
-           
-            
+            </div>       
             <div class="custom-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="card">
+            <form method="POST" id="employeeForm" target="_blank" action="print/print_employee_income.php">
             <div class="card-body text-center">
             <div class="row">
                 <div class="col-6">
+                <input type="hidden" id="user_id" name="user_id" value="<?php echo $_GET["id"]; ?>">
                     <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">From</span>
                         </div>
-                        <input type="text" class="form-control datepickerFrom">
+                        <input type="text" name="from" class="form-control datepickerFrom">
                     </div>
                     </div>
                 </div>
@@ -167,14 +167,16 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">To</span>
                         </div>
-                        <input type="text" disabled class="form-control datepickerTo disabled">
+                        <input type="text" name="to" disabled class="form-control datepickerTo disabled">
                     </div>
                     </div>
-                </div></div>
-            </div>
+                </div>
+                </div>
                 <div id="employee-profit-ranking" style="height: 300px; width: 100%;"></div>
-                <a target="_blank" href="print/print_employee_income.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
+                <button class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</button>
+                <!-- <a target="_blank" href="print/print_employee_income.php/?id=<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a> -->
             </div>
+            </form>
         </div>
         </div>
         <div class="custom-col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -316,7 +318,30 @@
 $(document).ready(function(){ 
 
     $('[data-toggle="tooltip"]').tooltip();
-    $(".datepickerFrom").datepicker({ clearBtn: true }).on("changeDate", function(e){ 
+
+    $("#employeeForm").on("submit", function(e){
+        
+        let from = $(".datepickerFrom").val(), to = $(".datepickerTo").val();    
+        console.log(from, to)
+        if(!from){
+            alert("Please fill all fields");
+            e.preventDefault();
+        }
+
+        if(from && !to){
+            let decision = confirm(`"To" date isn't given. Are you sure? (This will revert today's date)`);
+            if(!decision){
+                e.preventDefault();
+            }
+            
+        }
+        
+        return true;
+        // console.log(elements);
+    })
+
+    $(".datepickerFrom").datepicker({ clearBtn: true, todayHighlight: true }).on("changeDate", function(e){ 
+        $(".datepickerTo").val("");   
         let dateSelected = e.dates[0];
         $(".datepickerTo").attr({disabled: false});        
             $(".datepickerTo").removeClass("disabled");
