@@ -136,9 +136,9 @@
                 <label class="btn btn-outline-primary">
                     <input type="radio" name="options" id="monthly"> Monthly
                 </label>
-                <label class="btn btn-outline-primary">
+                <!-- <label class="btn btn-outline-primary">
                     <input type="radio" name="options" id="weekly"> Weekly
-                </label>
+                </label> -->
                 </div>
                 <div id="sales-annual" style="height: 300px; width: 100%;"></div>
                 <a target="_blank" id="salesPrintButton" href="print/print_sales_annual.php/?id=<?php echo $_GET["id"];?>" data-user="<?php echo $_GET["id"];?>" class="btn btn-sm btn-outline-primary mt-2" data-toggle="tooltip" title="Print as PDF" data-placement="top">Print</a>
@@ -329,7 +329,7 @@ $(document).ready(function(){
         }
 
         if(from && !to){
-            let decision = confirm(`"To" date isn't given. Are you sure? (This will revert today's date)`);
+            let decision = confirm(`"To" date isn't given. Are you sure? (This will revert to 'From' date)`);
             if(!decision){
                 e.preventDefault();
             }
@@ -363,7 +363,7 @@ $(document).ready(function(){
         let config = {
 	animationEnabled: true,
 	axisX:{
-		valueFormatString: id === 'annual' ? "YYYY" : id === 'monthly' ? "MMM" : "Week D"
+		valueFormatString: id === 'annual' ? "MMMM" : id === 'monthly' ? "MMMM" : "Week D"
 	},
 	axisY: {
 		title: "Closing Price",
@@ -382,11 +382,11 @@ $(document).ready(function(){
 
         switch(id){
             case "annual":
-                title = "Sales Report - Annual";
+                title = `Sales Report - Annual(${moment().format("YYYY")})`;
                 btnHref += "print_sales_annual.php/?id=";
                 break;
             case "monthly":
-                 title = `Sales Report - Monthly (${moment().format("YYYY")})`
+                 title = `Sales Report - Monthly (${moment().format("MMMM")})`
                  btnHref += "print_sales_month.php/?id=";
                  break;
             case "weekly":
@@ -447,7 +447,7 @@ let annually =  new CanvasJS.Chart("sales-annual", {
 		text: `Sales Report - Annual `
 	},
 	axisX:{
-		valueFormatString: "YYYY"
+		valueFormatString: "MMMM"
 	},
 	axisY: {
 		title: "Closing Price",
@@ -521,7 +521,7 @@ function EmpProfitLegendChange(e){
         dataType: "JSON",
         globa: true,
         success:function(data) {
-            let finalData = data.map(m2Val => ({ ...m2Val, dataPoints: m2Val.dataPoints.map(mVal => ({...mVal, x: new Date(mVal.x[0], mVal.x[1]-1, mVal.x[2])})) }))
+            let finalData = data.map(m2Val => ({ ...m2Val, dataPoints: m2Val.dataPoints.map(mVal => ({...mVal, x: new Date(mVal.x[0], mVal.x[1], mVal.x[2])})) }))
             annualData.push(...finalData);
             annually.render();
             

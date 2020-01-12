@@ -22,7 +22,9 @@ $test = $conn->query("select SUM(ServicePrice) as Total,b.Emp_Fullname,ServiceTy
 from tblServicesAvailed a 
 inner join tblEmployee b on a.EmployeeAssigned = b.EmployeeID
 inner join tblServices c on a.ServiceID = c.ServiceID
+inner join tblTransactions d on a.TransactionID = d.[JA-Transaction]
 where a.DataStatus = 'ACTIVE'
+and cast([Date/Time] as Date) between '{$_POST["from"]}' and '{$_POST["to"]}'
 group by b.Emp_Fullname,ServiceType,b.EmployeeID
 order by SUM(ServicePrice) DESC
 ")->fetchAll(PDO::FETCH_ASSOC);

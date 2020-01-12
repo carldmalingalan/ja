@@ -1,31 +1,31 @@
 <?php 
 
 require_once "../support/ja_config.php";
+$test = $conn->query("select Year,Month,Sum(Price) as Income,ServiceType from (
+    select TransactionNumber,Month([date/time]) as [Month],YEAR([date/time]) as [Year],ServiceType, SUM(ServicePrice) as Price  from dashboard_View
+    group by TransactionNumber,Month([date/time]),YEAR([date/time]),ServiceType) b
+   	where year	= year(getdate())
+    group by ServiceType,Month,Year
+    order by Year , Month")->fetchAll(PDO::FETCH_ASSOC);
 
-$test = $conn->query("select Year,Sum(Price) as Income,ServiceType from (
-    select TransactionNumber,YEAR([date/time]) as [Year],ServiceType, SUM(ServicePrice) as Price  from dashboard_View
-    group by TransactionNumber,YEAR([date/time]),ServiceType) b
-    group by ServiceType,Year")->fetchAll(PDO::FETCH_ASSOC);
+    $initData = array();
 
 
-$initData = array();
-$total = 0;
-
-// print_r($test);
-// die;
 foreach($test as $key => $val){
-    $initData["{$val['Year']}"][$val["ServiceType"]] = $val["Income"];
-    $total += floatval($val["Income"]);
+    $initData[getStringMonth($val["Month"])][$val["ServiceType"]] = $val["Income"];
+}
+foreach($initData as $mon => $inc){
+    $total = 0;
+    foreach($inc as $type => $act){
+        $total += floatval($act);
+        if($act === end($inc)){
+            $initData[$mon]["Total"] = $total;
+        }
+    }
 }
 
-foreach($initData as $key => $val){
-    $initData["{$key}"]["Total"] = array_reduce($val, function($prev, $curr){ return $prev += $curr; });
-}
-$totalCount = sizeof($initData);
-
-// $initData["Total"] = $total;
-// print_r($initData);
-// die; 
+// print_pre($initData);
+// die;
 
 $mainArr = array();
 $names = array("Hair","Face","Body","Nails","Total");
@@ -33,26 +33,25 @@ foreach($names as $index => $elem){
     $jsonObj = new stdClass();
     $jsonObj->name = $elem;
     $jsonObj->showInLegend = true;
-    $jsonObj->visible = $elem === "Total" ? true : false;
-    $jsonObj->toolTipContent = $elem === "Total"? "" : null;
-
-    $jsonObj->type ="bar";
-    $jsonObj->xValueFormatString = "YYYY";
+    $jsonObj->visible = $elem === "Total" || $elem === "Nails" ? true : false;
+    $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nails" ? "" : null;;
+    $jsonObj->type = "spline";
+    $jsonObj->xValueFormatString = "MMMM";
     $jsonObj->yValueFormatString = "₱#,###,###.##";
     $arr = array();
-    foreach($initData as $key => $val){
+    foreach(range(1,12) as $key => $val){
         $tempObj = new stdClass();
-        $tempObj->x = [$key,12,1];
-        $tempObj->y = array_key_exists($elem,$val) ? floatval($val[$elem]) : 0;
+        $tempObj->x = [intval(date("Y")),$val-1,1];
+        $tempObj->y = array_key_exists(getStringMonth($val), $initData) ? array_key_exists($elem,$initData[getStringMonth($val)]) ? floatval($initData[getStringMonth($val)][$elem]) : 0 : 0 ;
         array_push($arr,$tempObj);
     }
-    
     $jsonObj->dataPoints = $arr;
     array_push($mainArr,$jsonObj);
 }
 
+// print_pre($mainArr);
+// die;
 
-// Place Holder
 // $mainArr = array();
 // $names = array("Hair","Face","Body","Nail","Total");
 // foreach($names as $index => $elem){
@@ -60,26 +59,22 @@ foreach($names as $index => $elem){
 //     $jsonObj->name = $elem;
 //     $jsonObj->showInLegend = true;
 //     $jsonObj->visible = $elem === "Total" || $elem === "Nail" ? true : false;
-//     $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nail" ? "" : null;
+//     $jsonObj->toolTipContent = $elem === "Total" || $elem === "Nail" ? "" : null;;
+//     // $jsonObj->visible = true;
 //     $jsonObj->type = "spline";
-//     $jsonObj->xValueFormatString = "YYYY";
+//     $jsonObj->xValueFormatString = "MMMM";
 //     $jsonObj->yValueFormatString = "₱#,###,###.##";
 //     $arr = array();
-//     $year = array(2019,2018,2017);
-
-//     foreach($year as $key => $val){
+//     foreach(range(1,12) as $key => $val){
 //         $tempObj = new stdClass();
-//         $tempObj->x = [intval($val),12,1];
-//         $tempObj->y = mt_rand(100000,1000000);
+//         $tempObj->x = [intval(date("Y")),$val-1,1];
+//         $tempObj->y = mt_rand(10000,100000);
 //         array_push($arr,$tempObj);
 //     }
-    
 //     $jsonObj->dataPoints = $arr;
 //     array_push($mainArr,$jsonObj);
 // }
 
-// echo "<pre>";
-// print_r($mainArr);
-// echo "</pre>";
 
 echo json_encode($mainArr);
+
