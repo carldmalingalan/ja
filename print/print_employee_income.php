@@ -57,14 +57,9 @@ $pdf = new FPDF("P", "mm", "Letter");
 $pdf->addPage();
 $pdf->SetTitle('Employee (Cost Performance)');
 
-// $pdf->Image("BG_Circle.png",-110,-20, 300, 150);
 $pdf->FooterName = $userName[0]["UName"];
-$pdf->SetFont('Arial','',12);
-$pdf->Cell('100','5','J&A Inventory and Records Management System',0,1,'l');
-$pdf->SetFont('Arial','',8);
-$pdf->Cell(100,'5',"711 Boni Avenue Mandaluyong City",0,1,"l");
-$pdf->SetFont('Arial','',15);
-$pdf->Cell('195','10',"Employee (Cost Performance)",0,1,'C');
+$pdf->HeaderTitle = "Employee (Cost Performance)";
+
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(48.75,'5',"Name",1,0,'C');
 $pdf->Cell(48.75,'5',"Categories",1,0,'C');
