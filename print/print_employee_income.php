@@ -54,11 +54,13 @@ foreach($initData as $key => $val){
 $categ = array("Hair","Face","Nails","Body");
 
 $pdf = new FPDF("P", "mm", "Letter");
+$pdf->AliasNbPages();
+$pdf->HeaderTitle = "Employee (Cost Performance) {$_POST['from']}-{$_POST['to']}";
 $pdf->addPage();
 $pdf->SetTitle('Employee (Cost Performance)');
 
 $pdf->FooterName = $userName[0]["UName"];
-$pdf->HeaderTitle = "Employee (Cost Performance)";
+
 
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(48.75,'5',"Name",1,0,'C');
