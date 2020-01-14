@@ -1,6 +1,6 @@
 <?php 
-// require_once "../support/fpdf.php";
-// require_once "../support/ja_config.php";
+require_once "../support/fpdf.php";
+require_once "../support/ja_config.php";
 
 if(!isset($_POST) && empty($_POST)){
     echo "Invalid parameters";
@@ -30,7 +30,7 @@ $initData = array();
 $employees = array();
 
 
-$acctId = $_GET["id"];
+$acctId = $_POST["user_id"];
 $userName = $conn->query("select AccountFullname As UName
  from tblAccounts where AccountID = {$acctId}")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -68,7 +68,7 @@ $pdf->Cell('195','10',"Employee (Cost Performance)",0,1,'C');
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(48.75,'5',"Name",1,0,'C');
 $pdf->Cell(48.75,'5',"Categories",1,0,'C');
-$pdf->Cell(48.75,'5',"Total Per Category",1,0,'C');
+$pdf->Cell(48.75,'5',"Total Price per Category",1,0,'C');
 $pdf->Cell(48.75,'5',"Total",1,1,'C');
 
 
