@@ -6,7 +6,7 @@ CONCAT('JAServ',RIGHT('000000', 6 - LEN(CAST(ServiceID As varchar))),ServiceID) 
 ServiceName As Name,
 ServicePrice As Price,
 ServiceType As Type,
-(CASE ServiceStatus when 1 THEN 'Available' ELSE 'Not Available' END) As Status
+(CASE ServiceStatus when 0 THEN 'Available' ELSE 'Not Available' END) As Status
 from tblServices;")->fetchAll(PDO::FETCH_ASSOC);
 
 $acctId = $_GET["id"];
